@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">check_solution</string>
+    <string name="min">Минимум</string>
+    <string name="max">Максимум</string>
+    <string name="average">Среднее</string>
+    <string name="totalOfVerifiedExamples">Итого проверено примеров</string>
+    <string name="right">Правильно</string>
+    <string name="wrong">Не правильно</string>
+    <string name="zero">0</string>
+    <string name="zero_2">00</string>
+    <string name="solution_right">ВЕРНО</string>
+    <string name="solution_wrong">НЕВЕРНО</string>
+    <string name="text_percent">0.00%</string>
+    <string name="text_time">ВРЕМЯ (сек)</string>
+</resources>

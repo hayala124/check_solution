@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutExample"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtPercentageCorrectAnswers">
+
+        <TextView
+            android:id="@+id/txtFirstOperand"
+            style="@style/textStyle_4"
+            android:text="@string/zero_2" />
+
+        <TextView
+            android:id="@+id/txtOperation"
+            style="@style/textStyle_4"
+            android:text="+" />
+
+        <TextView
+            android:id="@+id/txtSecondOperand"
+            style="@style/textStyle_4"
+            android:text="@string/zero_2" />
+
+        <TextView
+            android:id="@+id/txtEqually"
+            style="@style/textStyle_4"
+            android:text="=" />
+
+        <TextView
+            android:id="@+id/txtResult"
+            style="@style/textStyle_4"
+            android:gravity="center"
+            android:text="@string/zero_2" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnStart"
+        style="@style/textStyle_5"
+        android:layout_width="match_parent"
+        android:text="СТАРТ"
+        android:enabled="true"
+        app:cornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/RightAndWrongAnswers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutChecked">
+
+        <TextView
+            android:id="@+id/txtRightExamples"
+            style="@style/textStyle_1"
+            android:text="@string/right" />
+
+        <TextView
+            android:id="@+id/txtWrongExamples"
+            style="@style/textStyle_1"
+            android:text="@string/wrong" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Number_Right_Wrong_Answers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/RightAndWrongAnswers">
+
+        <TextView
+            android:id="@+id/txtNumberRight"
+            style="@style/textStyle_2"
+            android:layout_marginEnd="180dp"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/txtNumberWrong"
+            style="@style/textStyle_2"
+            android:text="@string/zero" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtPercentageCorrectAnswers"
+        style="@style/textStyle_3"
+        android:paddingTop="30dp"
+        android:text="@string/text_percent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout_time_2" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutChecked"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txt_checked_examples"
+            style="@style/textStyle_1"
+            android:text="@string/totalOfVerifiedExamples" />
+
+        <TextView
+            android:id="@+id/txtAllExamples"
+            style="@style/textStyle_1"
+            android:text="@string/zero" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtTime"
+        style="@style/textStyle_1"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:text="@string/text_time"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@id/Number_Right_Wrong_Answers" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTime">
+
+        <TextView
+            style="@style/textStyle_2"
+            android:layout_margin="10dp"
+            android:text="@string/min" />
+
+        <TextView
+            style="@style/textStyle_2"
+            android:layout_margin="10dp"
+            android:text="@string/max" />
+
+        <TextView
+            style="@style/textStyle_2"
+            android:layout_margin="10dp"
+            android:text="@string/average" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_time_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutTime">
+
+        <TextView
+            android:id="@+id/txtTimeMin"
+            style="@style/textStyle_2"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/txtTimeMax"
+            style="@style/textStyle_2"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/txtTimeAverage"
+            style="@style/textStyle_2"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="0.00" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutForButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnStart">
+
+        <Button
+            android:id="@+id/btnRight"
+            style="@style/textStyle_5"
+            android:text="@string/solution_right"
+            app:cornerRadius="5dp"
+            app:layout_constraintBottom_toTopOf="@id/btnStart"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnWrong"
+            style="@style/textStyle_5"
+            android:text="@string/solution_wrong"
+            app:cornerRadius="5dp"
+            app:layout_constraintBottom_toTopOf="@id/btnStart"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
