@@ -20,10 +20,13 @@ class MainActivity : AppCompatActivity() {
     private var number_2 = 0
     private var right = 0
     private var wrong = 0
+    private var right_answer = true
+    private var wrong_answer = false
     private var operation = ' '
     private var probability = true
     private var result = 0
     private val decFormat = DecimalFormat("#.##")
+    private var numberOfCheckedExample = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,41 +88,57 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onButtonRightPressed() {
-        val answer = check()
-        if (answer == right)
-            txtRightAnswer.text = answer.toString()
-        else
-            txtWrongAnswer.text = answer.toString()
+        checkedExamles()
+        check()
+        if (right_answer == true) {
+            changesForRightAnswer()
+        }
+        else {
+            changesForWrongAnswer()
+        }
     }
 
     private fun onButtonWrongPressed() {
-        val answer = check()
-        if (answer == wrong)
-            txtRightAnswer.text = answer.toString()
-        else
-            txtWrongAnswer.text = answer.toString()
-
+        checkedExamles()
+        check()
+        if (wrong_answer == true) {
+            changesForRightAnswer()
+        }
+        else {
+            changesForWrongAnswer()
+        }
     }
 
-    private fun check(): Int  {
-        var answer = 0
+    private fun checkedExamles() {
+        numberOfCheckedExample++
+        binding.txtAllExamples.text = numberOfCheckedExample.toString()
+    }
+    private fun changesForRightAnswer() {
+        right++
+        txtRightAnswer.text = right.toString()
+    }
+
+    private fun changesForWrongAnswer() {
+        wrong++
+        txtWrongAnswer.text = wrong.toString()
+    }
+
+    private fun check() {
         if ((operation == '+' && textResult.text == (number_1 + number_2).toString()) ||
             (operation == '-' && textResult.text == (number_1 - number_2).toString()) ||
             (operation == '*' && textResult.text == (number_1 * number_2).toString()) ||
             (operation == '/' && ((number_1 % number_2 == 0 && textResult.text == (number_1 / number_2).toString()) ||
                     (number_1 % number_2 != 0 && textResult.text == decFormat.format(number_1.toDouble() / number_2.toDouble()))))
             ) {
-            right++
-            answer = right
+            right_answer = true
+            wrong_answer = false
         }
         else {
-            wrong++
-            answer = wrong
+            right_answer = false
+            wrong_answer = true
         }
         buttonRight.isEnabled = false
         buttonWrong.isEnabled = false
         buttonStart.isEnabled = true
-
-        return answer
     }
 }
