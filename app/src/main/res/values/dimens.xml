@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_with_words_1_for_time">200dp</dimen>
+</resources>

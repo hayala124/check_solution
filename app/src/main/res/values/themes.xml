@@ -50,6 +50,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">25sp</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginRight">@dimen/margin_with_words_1_for_time</item>
     </style>
 
     <style name="textStyle_3_3" parent="textStyle_1_1">
@@ -60,12 +61,12 @@
         <item name="android:textSize">30sp</item>
     </style>
 
-    <style name="textStyle_5_5" parent="textStyle_2_2">
+    <style name="textStyle_5_5">
         <item name="android:layout_width">250dp</item>
         <item name="android:textColor">@color/white</item>
         <item name="backgroundTint">@color/colorButton</item>
         <item name="android:textSize">15sp</item>
-        <item name="android:padding">5dp</item>
-        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginTop">50dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
     </style>
 </resources>
