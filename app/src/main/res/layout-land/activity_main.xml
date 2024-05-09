@@ -100,7 +100,7 @@
         style="@style/textStyle_3_3"
         android:text="@string/text_percent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/linearLayoutChecked"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/Number_Right_Wrong_Answers" />
 
     <LinearLayout
@@ -132,13 +132,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <TextView
+        android:id="@+id/txtTimeNow"
+        style="@style/textStyle_1_1"
+        android:text="@string/zero"
+        app:layout_constraintStart_toEndOf="@id/txtTime"
+        app:layout_constraintTop_toTopOf="@id/txtTime"
+        app:layout_constraintBottom_toBottomOf="@id/txtTime"/>
+
     <LinearLayout
         android:id="@+id/linearLayoutTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintStart_toEndOf="@id/linearLayoutChecked"
+        app:layout_constraintStart_toStartOf="@id/txtTime"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/RightAndWrongAnswers"
         app:layout_constraintTop_toBottomOf="@id/txtTime">
 
         <TextView
@@ -165,19 +174,19 @@
 
         <TextView
             android:id="@+id/txtTimeMin"
-            style="@style/textStyle_2"
+            style="@style/textStyle_2_2"
             android:layout_gravity="end"
             android:text="@string/zero" />
 
         <TextView
             android:id="@+id/txtTimeMax"
-            style="@style/textStyle_2"
+            style="@style/textStyle_2_2"
             android:layout_gravity="end"
             android:text="@string/zero" />
 
         <TextView
             android:id="@+id/txtTimeAverage"
-            style="@style/textStyle_2"
+            style="@style/textStyle_2_2"
             android:layout_gravity="end"
             android:text="0.00" />
     </LinearLayout>
@@ -193,19 +202,19 @@
 
         <Button
             android:id="@+id/btnRight"
-            style="@style/textStyle_5"
+            style="@style/textStyle_5_5"
             android:text="@string/solution_right"
+            android:layout_weight="1"
             app:cornerRadius="5dp"
-            app:layout_constraintBottom_toTopOf="@id/btnStart"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toTopOf="@id/btnStart" />
 
         <Button
             android:id="@+id/btnWrong"
-            style="@style/textStyle_5"
+            style="@style/textStyle_5_5"
             android:text="@string/solution_wrong"
+            android:layout_weight="1"
             app:cornerRadius="5dp"
-            app:layout_constraintBottom_toTopOf="@id/btnStart"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintBottom_toTopOf="@id/btnStart"/>
     </LinearLayout>
 
 

@@ -125,11 +125,19 @@
     <TextView
         android:id="@+id/txtTime"
         style="@style/textStyle_1"
-        android:layout_width="match_parent"
-        android:gravity="center"
         android:text="@string/text_time"
         android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/Number_Right_Wrong_Answers" />
+
+    <TextView
+        android:id="@+id/txtTimeNow"
+        style="@style/textStyle_1"
+        android:text="@string/zero"
+        app:layout_constraintStart_toEndOf="@id/txtTime"
+        app:layout_constraintTop_toTopOf="@id/txtTime"
+        app:layout_constraintBottom_toBottomOf="@id/txtTime"/>
 
     <LinearLayout
         android:id="@+id/linearLayoutTime"
