@@ -4,11 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Button
-import android.widget.TextView
 import com.hayala.check_solution.databinding.ActivityMainBinding
 import java.io.Serializable
-import java.text.DecimalFormat
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -16,13 +13,11 @@ class MainActivity : AppCompatActivity() {
     lateinit var state: State
     private var second = ArrayList<Int>()
     private var probability = true
-    private val decFormat = DecimalFormat("#.##")
     private var startTime: Long = 0
     private var isRunning = false
     private val handler = Handler(Looper.getMainLooper())
-    private var right_answer = true
-    private var wrong_answer = true
-
+    private var rightAnswer = true
+    private var wrongAnswer = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +40,7 @@ class MainActivity : AppCompatActivity() {
                 firstOperand = 0,
                 secondOperand = 0,
                 operation = '+',
-                //result_1 = 0,
-                result_2 = 0.00,
+                result = 0.00,
                 enabledOfButtonRight = false,
                 enabledOfButtonWrong = false,
                 enabledOfButtonStart = true
@@ -70,8 +64,7 @@ class MainActivity : AppCompatActivity() {
         txtFirstOperand.setText(state.firstOperand.toString())
         txtSecondOperand.setText(state.secondOperand.toString())
         txtOperation.setText(state.operation.toString())
-       // txtResult.setText(state.result_1.toString())
-        txtResult.setText(String.format("%.2f", state.result_2))
+        txtResult.setText(String.format("%.2f", state.result))
         btnRight.isEnabled = if (state.enabledOfButtonRight) true else false
         btnWrong.isEnabled = if (state.enabledOfButtonWrong) true else false
         btnStart.isEnabled = if (state.enabledOfButtonStart) true else false
@@ -93,8 +86,7 @@ class MainActivity : AppCompatActivity() {
         var firstOperand: Int,
         var secondOperand: Int,
         var operation: Char,
-       // var result_1: Int,
-        var result_2: Double,
+        var result: Double,
         var enabledOfButtonRight: Boolean,
         var enabledOfButtonWrong: Boolean,
         var enabledOfButtonStart: Boolean
@@ -104,13 +96,66 @@ class MainActivity : AppCompatActivity() {
         @JvmStatic private val KEY_STATE = "STATE"
     }
 
+    private fun onButtonStartPressed() {
+        state.firstOperand = Random.nextInt(10, 100)
+        state.secondOperand = Random.nextInt(10, 100)
+        state.operation = listOf('*', '/', '-', '+').random()
+
+        probability = Random.nextBoolean();
+        if (probability) {
+            state.result = when(state.operation) {
+                '+' -> (state.firstOperand + state.secondOperand).toDouble()
+                '-' -> (state.firstOperand - state.secondOperand).toDouble()
+                '*' -> (state.firstOperand * state.secondOperand).toDouble()
+                else ->  (String.format("%.2f", (state.firstOperand.toDouble() / state.secondOperand.toDouble()))).toDouble()
+            }
+        } else {
+            val result2 = Random.nextInt(-99, 9801)
+            state.result = result2.toDouble()
+        }
+        startTimer()
+
+        state.enabledOfButtonStart = !state.enabledOfButtonStart
+        state.enabledOfButtonRight = !state.enabledOfButtonRight
+        state.enabledOfButtonWrong = !state.enabledOfButtonWrong
+        setState()
+    }
+
+    private fun onButtonRightPressed() {
+        checkCorrectnessOfExample()
+        if (rightAnswer == true) {
+            state.countRightAnswers++
+        } else {
+            state.countWrongAnswers++
+        }
+        changesAfterAnswer()
+        setState()
+    }
+
+    private fun onButtonWrongPressed() {
+        checkCorrectnessOfExample()
+        if (wrongAnswer == true) {
+            state.countRightAnswers++
+        } else {
+            state.countWrongAnswers++
+        }
+        changesAfterAnswer()
+        setState()
+    }
+
+    private fun changesAfterAnswer() {
+        state.countOfSolvedExamples++
+        state.percentageOfRightAnswers = state.countRightAnswers * 100 / state.countOfSolvedExamples.toDouble()
+        stopTimer()
+        getTime()
+    }
+
     private fun startTimer() {
         if (!isRunning) {
             startTime = System.currentTimeMillis()
             isRunning = true
             updateTimerDisplay()
         }
-        setState()
     }
 
     private fun stopTimer() {
@@ -128,91 +173,25 @@ class MainActivity : AppCompatActivity() {
             setState()
         }
     }
-
-    private fun onButtonStartPressed() {
-        state.firstOperand = Random.nextInt(10, 100)
-        state.secondOperand = Random.nextInt(10, 100)
-        state.operation = listOf('*', '/', '-', '+').random()
-
-        probability = Random.nextBoolean();
-        if (probability) {
-            state.result_2 = when(state.operation) {
-                '+' -> (state.firstOperand + state.secondOperand).toDouble()
-                '-' -> (state.firstOperand - state.secondOperand).toDouble()
-                '*' -> (state.firstOperand * state.secondOperand).toDouble()
-                else ->  (String.format("%.2f", (state.firstOperand.toDouble() / state.secondOperand.toDouble()))).toDouble()
-            }
-        } else {
-            val result_1 = Random.nextInt(-99, 9801)
-            state.result_2 = result_1.toDouble()
-        }
-        startTimer()
-
-        state.enabledOfButtonStart = !state.enabledOfButtonStart
-        state.enabledOfButtonRight = !state.enabledOfButtonRight
-        state.enabledOfButtonWrong = !state.enabledOfButtonWrong
-        setState()
-    }
-
-    private fun onButtonRightPressed() {
-        checkedExamles()
-        checkCorrectnessOfExample()
-        if (right_answer == true) {
-            state.countRightAnswers++
-        } else {
-            state.countWrongAnswers++
-        }
-        changesAfterAnswer()
-        setState()
-    }
-
-    private fun onButtonWrongPressed() {
-        checkedExamles()
-        checkCorrectnessOfExample()
-        if (wrong_answer == true) {
-            state.countRightAnswers++
-        } else {
-            state.countWrongAnswers++
-        }
-        changesAfterAnswer()
-        setState()
-    }
-
-    private fun changesAfterAnswer() {
-        state.percentageOfRightAnswers = state.countRightAnswers * 100 / state.countOfSolvedExamples.toDouble()
-        stopTimer()
-        getTime()
-    }
     private fun getTime() {
         second.add(state.amountTimeAfterReceivingExample)
 
         state.maximumTime = second.maxOrNull().toString().toInt()
         state.minimumTime = second.minOrNull().toString().toInt()
         state.averageTime = second.average().toString().toDouble()
-        /*max_time = second.maxOrNull().toString().toInt()
-        min_time = second.minOrNull().toString().toInt()
-        average_time = second.average().toString().toDouble()
-
-        textMinTime.text = min_time.toString()
-        textMaxTime.text = max_time.toString()
-        textAverageTime.text = String.format("%.2f", average_time)*/
-    }
-
-    private fun checkedExamles() {
-        state.countOfSolvedExamples++
     }
 
     private fun checkCorrectnessOfExample() {
-        if ((state.operation == '+' && state.result_2 == (state.firstOperand + state.secondOperand).toDouble()) ||
-            (state.operation == '-' && state.result_2 == (state.firstOperand - state.secondOperand).toDouble()) ||
-            (state.operation == '*' && state.result_2 == (state.firstOperand * state.secondOperand).toDouble()) ||
-            (state.operation == '/' && state.result_2 == (String.format("%.2f", state.firstOperand.toDouble() / state.secondOperand.toDouble())).toDouble())
+        if ((state.operation == '+' && state.result == (state.firstOperand + state.secondOperand).toDouble()) ||
+            (state.operation == '-' && state.result == (state.firstOperand - state.secondOperand).toDouble()) ||
+            (state.operation == '*' && state.result == (state.firstOperand * state.secondOperand).toDouble()) ||
+            (state.operation == '/' && state.result == (String.format("%.2f", state.firstOperand.toDouble() / state.secondOperand.toDouble())).toDouble())
         ) {
-            right_answer = true
-            wrong_answer = false
+            rightAnswer = true
+            wrongAnswer = false
         } else {
-            right_answer = false
-            wrong_answer = true
+            rightAnswer = false
+            wrongAnswer = true
         }
         state.enabledOfButtonRight = !state.enabledOfButtonRight
         state.enabledOfButtonWrong = !state.enabledOfButtonWrong
