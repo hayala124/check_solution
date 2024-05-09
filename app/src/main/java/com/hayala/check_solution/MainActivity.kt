@@ -4,8 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import com.hayala.check_solution.databinding.ActivityMainBinding
-import java.io.Serializable
+import kotlinx.parcelize.Parcelize
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -27,28 +28,23 @@ class MainActivity : AppCompatActivity() {
         binding.btnRight.setOnClickListener { onButtonRightPressed() }
         binding.btnWrong.setOnClickListener { onButtonWrongPressed() }
 
-        state = if (savedInstanceState == null) {
-            State(
-                countOfSolvedExamples = 0,
-                countRightAnswers = 0,
-                countWrongAnswers = 0,
-                amountTimeAfterReceivingExample = 0,
-                minimumTime = 0,
-                maximumTime = 0,
-                averageTime = 0.00,
-                percentageOfRightAnswers = 0.00,
-                firstOperand = 0,
-                secondOperand = 0,
-                operation = '+',
-                result = 0.00,
-                enabledOfButtonRight = false,
-                enabledOfButtonWrong = false,
-                enabledOfButtonStart = true
-            )
-        }
-        else {
-            savedInstanceState.getSerializable(KEY_STATE) as State
-        }
+        state = savedInstanceState?.getParcelable(KEY_STATE) ?: State (
+            countOfSolvedExamples = 0,
+            countRightAnswers = 0,
+            countWrongAnswers = 0,
+            amountTimeAfterReceivingExample = 0,
+            minimumTime = 0,
+            maximumTime = 0,
+            averageTime = 0.00,
+            percentageOfRightAnswers = 0.00,
+            firstOperand = 0,
+            secondOperand = 0,
+            operation = '+',
+            result = 0.00,
+            enabledOfButtonRight = false,
+            enabledOfButtonWrong = false,
+            enabledOfButtonStart = true
+        )
         setState()
     }
 
@@ -72,8 +68,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY_STATE, state)
+        outState.putParcelable(KEY_STATE, state)
     }
+    @Parcelize
     class State (
         var countOfSolvedExamples: Int,
         var countRightAnswers: Int,
@@ -90,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         var enabledOfButtonRight: Boolean,
         var enabledOfButtonWrong: Boolean,
         var enabledOfButtonStart: Boolean
-    ): Serializable
+    ): Parcelable
 
     companion object {
         @JvmStatic private val KEY_STATE = "STATE"
