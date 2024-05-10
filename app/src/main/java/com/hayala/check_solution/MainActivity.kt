@@ -28,23 +28,31 @@ class MainActivity : AppCompatActivity() {
         binding.btnRight.setOnClickListener { onButtonRightPressed() }
         binding.btnWrong.setOnClickListener { onButtonWrongPressed() }
 
-        state = savedInstanceState?.getParcelable(KEY_STATE) ?: State (
-            countOfSolvedExamples = 0,
-            countRightAnswers = 0,
-            countWrongAnswers = 0,
-            amountTimeAfterReceivingExample = 0,
-            minimumTime = 0,
-            maximumTime = 0,
-            averageTime = 0.00,
-            percentageOfRightAnswers = 0.00,
-            firstOperand = 0,
-            secondOperand = 0,
-            operation = '+',
-            result = 0.00,
-            enabledOfButtonRight = false,
-            enabledOfButtonWrong = false,
-            enabledOfButtonStart = true
-        )
+        state = if (savedInstanceState == null) {
+            second = ArrayList()
+
+            State (
+                countOfSolvedExamples = 0,
+                countRightAnswers = 0,
+                countWrongAnswers = 0,
+                amountTimeAfterReceivingExample = 0,
+                minimumTime = 0,
+                maximumTime = 0,
+                averageTime = 0.00,
+                percentageOfRightAnswers = 0.00,
+                firstOperand = 0,
+                secondOperand = 0,
+                operation = '+',
+                result = 0.00,
+                enabledOfButtonRight = false,
+                enabledOfButtonWrong = false,
+                enabledOfButtonStart = true
+            )
+        }
+        else {
+            second = savedInstanceState.getIntegerArrayList(KEY_ARRAY_LIST_SECOND)!!
+            savedInstanceState.getParcelable(KEY_STATE)!!
+        }
         setState()
     }
 
@@ -69,7 +77,9 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(KEY_STATE, state)
+        outState.putIntegerArrayList(KEY_ARRAY_LIST_SECOND, second)
     }
+
     @Parcelize
     class State (
         var countOfSolvedExamples: Int,
@@ -91,6 +101,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         @JvmStatic private val KEY_STATE = "STATE"
+        @JvmStatic private val KEY_ARRAY_LIST_SECOND = "SECOND"
     }
 
     private fun onButtonStartPressed() {
