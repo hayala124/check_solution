@@ -11,7 +11,7 @@ import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    lateinit var state: State
+    private lateinit var state: State
     private var second = ArrayList<Int>()
     private var probability = true
     private var startTime: Long = 0
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         txtAllExamples.setText(state.countOfSolvedExamples.toString())
         txtNumberRight.setText(state.countRightAnswers.toString())
         txtNumberWrong.setText(state.countWrongAnswers.toString())
-        txtTimeNow.setText(state.amountTimeAfterReceivingExample.toString())
+        //txtTimeNow.setText(state.amountTimeAfterReceivingExample.toString())
         txtTimeMin.setText(state.minimumTime.toString())
         txtTimeMax.setText(state.maximumTime.toString())
         txtTimeAverage.setText(String.format("%.2f", state.averageTime))
